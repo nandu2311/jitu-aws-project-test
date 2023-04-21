@@ -8,7 +8,7 @@
 } */
 
 resource "aws_instance" "my_task_checking" {
-    ami = "ami-0f8ca728008ff5af4"
+    ami = var.ami_id
     instance_type = "t2.micro"
     /* count = length(var.subnet_cidrs_public)  */
     subnet_id = aws_subnet.test-subnet[0].id
