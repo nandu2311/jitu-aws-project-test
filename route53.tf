@@ -2,7 +2,7 @@
 
 resource "aws_route53_record" "appserver" {
     zone_id = data.aws_route53_zone.my_created_hosted_zone.zone_id
-    name = "appserver.nritworld.xyz"
+    name = "${var.route53_record}.${var.route53_name}"
     type = "A"
     ttl = 300
     records = [ aws_instance.my_task_checking.public_ip ]
@@ -11,7 +11,7 @@ resource "aws_route53_record" "appserver" {
 }
 
 data "aws_route53_zone" "my_created_hosted_zone" {
-  name = "nritworld.xyz"
+  name = var.route53_name
   
 }
 /* 

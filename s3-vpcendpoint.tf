@@ -4,11 +4,7 @@ resource "aws_vpc_endpoint" "my_vpeendpoint" {
     vpc_id = aws_vpc.test-env.id
     service_name = "com.amazonaws.${var.aws_region}.s3"
     vpc_endpoint_type = "Gateway"
-    /* security_group_ids = [ "${aws_security_group.test_security_group.id}" ] */
-    /* private_dns_enabled = true */
-    /* route_table_ids = [ aws_route_table.test_route_table.id ] */
-    /* subnet_ids = [ aws_subnet.test-subnet[count.index].id ] */
-    /* count = length(var.subnet_cidrs_public) */
+    
 
 }
 
@@ -28,10 +24,10 @@ data "aws_prefix_list" "vpce_prefix_list" {
 }
 
 resource "aws_s3_bucket" "webserver_s3_bucket" {
-    bucket = "simple-website-testing-vpcendpoint"
+    bucket = var.s3_bucket_name
 
     tags = {
-      "Name" = "MyBucket"
+      "Name" = var.s3_bucket_name
     }
 }
 

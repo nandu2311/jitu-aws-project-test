@@ -5,32 +5,9 @@ resource "aws_vpc" "test-env" {
   enable_dns_hostnames = true
 
   tags = {
-    "Name" = "test-env-vpc"
+    "Name" = var.vpc_name
   }
 }
-
-#Create Subnet 
-/* resource "aws_subnet" "test-subnet1a" {
-  vpc_id     = aws_vpc.test-env.id
-  cidr_block = "10.0.1.0/24"
-  availability_zone = "ap-south-1a"
-
-  tags = {
-    "Name" = "test_subnet1a"
-  }
-
-}
-
-resource "aws_subnet" "test-subnet1b" {
-  vpc_id     = aws_vpc.test-env.id
-  cidr_block = "10.0.2.0/24"
-  availability_zone = "ap-south-1b"
-
-  tags = {
-    "Name" = "test_subnet1b"
-  }
-
-} */
 
 resource "aws_subnet" "test-subnet" {
   vpc_id            = aws_vpc.test-env.id
@@ -47,6 +24,9 @@ resource "aws_subnet" "test-subnet" {
 #Create Internet Gateway
 resource "aws_internet_gateway" "test_internet_gateway" {
   vpc_id = aws_vpc.test-env.id
+  tags = {
+    "Name" = var.ig
+  }
 }
 
 #Create Route table and attached internet gateway
@@ -86,7 +66,7 @@ resource "aws_route_table_association" "route_table_association" {
 
 #Create Security Group for test
 resource "aws_security_group" "test_security_group" {
-  name        = "allow Access"
+  name        = var.security_group_name
   description = "Allow inbound traffic"
   vpc_id      = aws_vpc.test-env.id
 
@@ -117,7 +97,7 @@ resource "aws_security_group" "test_security_group" {
   ]
 
   tags = {
-    name = "test-security-group"
+    name = var.security_group_name
   }
 
 }

@@ -12,7 +12,7 @@ resource "aws_instance" "my_task_checking" {
     instance_type = "t2.micro"
     /* count = length(var.subnet_cidrs_public)  */
     subnet_id = aws_subnet.test-subnet[0].id
-    key_name = "myvm"
+    key_name = var.key_pair_name
     associate_public_ip_address = true
     /* for_each = data.aws_subnet_ids.subnet_ids.ids
     subnet_id = each.value */
@@ -21,7 +21,7 @@ resource "aws_instance" "my_task_checking" {
     iam_instance_profile = aws_iam_instance_profile.iam_instance_profile.name
 
     tags = {
-      "Name" = "MyPC"
+      "Name" = var.instance_name
     }
 
 }
