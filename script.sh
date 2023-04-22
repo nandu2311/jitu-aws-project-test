@@ -42,7 +42,7 @@
                 proxy_ignore_headers   Set-Cookie;
                 proxy_intercept_errors on;
                 add_header             Cache-Control max-age=31536000;
-                proxy_pass             https://simple-website-testing-vpcendpoint.s3.ap-south-1.amazonaws.com/index.html;
+                proxy_pass             https://simple-website-testing-vpcendpoint.s3.ap-south-1.amazonaws.com/;
         }
 
 }
